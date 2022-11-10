@@ -2,6 +2,7 @@ import turtle as t
 import random
 playerAscore = 0
 playerBscore = 0
+ex_it = False
 
 # create a window and declare a variable called window and call the screen()
 window = t.Screen()
@@ -76,6 +77,10 @@ def rightpaddledown():
     ry = ry - 30
     rightpaddle.sety(ry)
 
+def tapExit():
+    ex_it = True
+
+
 
 
 # Assign keys to play
@@ -84,8 +89,10 @@ window.onkeypress(leftpaddleup, 'w')
 window.onkeypress(leftpaddledown, 's')
 window.onkeypress(rightpaddleup, 'Up')
 window.onkeypress(rightpaddledown, 'Down')
+window.onkeypress(tapExit, 'e')
 
-while True:
+
+while playerAscore != 11 and playerBscore != 11:
     while True:
         window.update()
         if playerAscore != 11 and playerBscore != 11:
@@ -146,16 +153,24 @@ while True:
                 ball_x_direction *= -1
 
         else:
-            window.clear()
-            window.bgcolor("black")
-            pen = t.Turtle()
-            pen.speed(0)
-            pen.color("white")
-            pen.penup()
-            pen.hideturtle()
-            pen.goto(0, 0)
+            break
+window.clear()
+while ex_it is False:
+    window.bgcolor("black")
 
-            if max(playerAscore, playerBscore) == playerAscore:
-                pen.write("LEFT SIDE WINS!!!", align="center", font=('Monaco', 24, 'bold'))
-            else:
-                pen.write("RIGHT SIDE WINS!!!", align="center", font=('Monaco', 24, 'bold'))
+    pen = t.Turtle()
+    pen.hideturtle()
+    pen.speed(0)
+    pen.color("white")
+    pen.penup()
+
+    pen.goto(0, 0)
+
+    if max(playerAscore, playerBscore) == playerAscore:
+        pen.write("LEFT SIDE WINS!!!", align="center", font=('Monaco', 24, 'bold'))
+        pen.goto(0, -100)
+        pen.write("press E to exit", align="center", font=('Monaco', 19, 'normal'))
+    else:
+        pen.write("RIGHT SIDE WINS!!!", align="center", font=('Monaco', 24, 'bold'))
+        pen.goto(0, -100)
+        pen.write("press E to exit", align="center", font=('Monaco', 19, 'normal'))
